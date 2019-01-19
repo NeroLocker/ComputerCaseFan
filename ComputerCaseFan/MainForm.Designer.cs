@@ -34,14 +34,14 @@
             this.bladeThicknessLabel = new System.Windows.Forms.Label();
             this.bladesQuantityLabel = new System.Windows.Forms.Label();
             this.bladeTurnLabel = new System.Windows.Forms.Label();
-            this.lengthTextBox = new System.Windows.Forms.TextBox();
-            this.diameterTextBox = new System.Windows.Forms.TextBox();
+            this.frameLengthTextBox = new System.Windows.Forms.TextBox();
+            this.holesDiameterTextBox = new System.Windows.Forms.TextBox();
             this.thicknessTextBox = new System.Windows.Forms.TextBox();
-            this.bladesTextBox = new System.Windows.Forms.TextBox();
-            this.turnTextBox = new System.Windows.Forms.TextBox();
+            this.bladeTurnTextBox = new System.Windows.Forms.TextBox();
             this.noteLabel = new System.Windows.Forms.Label();
-            this.okButton = new System.Windows.Forms.Button();
-            this.cancelButton = new System.Windows.Forms.Button();
+            this.CreateFanButton = new System.Windows.Forms.Button();
+            this.defaultParametersButton = new System.Windows.Forms.Button();
+            this.bladesQuantityComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // frameLengthLabel
@@ -69,61 +69,63 @@
             resources.ApplyResources(this.bladeTurnLabel, "bladeTurnLabel");
             this.bladeTurnLabel.Name = "bladeTurnLabel";
             // 
-            // lengthTextBox
+            // frameLengthTextBox
             // 
-            resources.ApplyResources(this.lengthTextBox, "lengthTextBox");
-            this.lengthTextBox.Name = "lengthTextBox";
+            resources.ApplyResources(this.frameLengthTextBox, "frameLengthTextBox");
+            this.frameLengthTextBox.Name = "frameLengthTextBox";
             // 
-            // diameterTextBox
+            // holesDiameterTextBox
             // 
-            resources.ApplyResources(this.diameterTextBox, "diameterTextBox");
-            this.diameterTextBox.Name = "diameterTextBox";
+            resources.ApplyResources(this.holesDiameterTextBox, "holesDiameterTextBox");
+            this.holesDiameterTextBox.Name = "holesDiameterTextBox";
             // 
             // thicknessTextBox
             // 
             resources.ApplyResources(this.thicknessTextBox, "thicknessTextBox");
             this.thicknessTextBox.Name = "thicknessTextBox";
             // 
-            // bladesTextBox
+            // bladeTurnTextBox
             // 
-            resources.ApplyResources(this.bladesTextBox, "bladesTextBox");
-            this.bladesTextBox.Name = "bladesTextBox";
-            // 
-            // turnTextBox
-            // 
-            resources.ApplyResources(this.turnTextBox, "turnTextBox");
-            this.turnTextBox.Name = "turnTextBox";
+            resources.ApplyResources(this.bladeTurnTextBox, "bladeTurnTextBox");
+            this.bladeTurnTextBox.Name = "bladeTurnTextBox";
             // 
             // noteLabel
             // 
             resources.ApplyResources(this.noteLabel, "noteLabel");
             this.noteLabel.Name = "noteLabel";
             // 
-            // okButton
+            // CreateFanButton
             // 
-            resources.ApplyResources(this.okButton, "okButton");
-            this.okButton.Name = "okButton";
-            this.okButton.UseVisualStyleBackColor = true;
-            this.okButton.Click += new System.EventHandler(this.okButton_Click);
+            resources.ApplyResources(this.CreateFanButton, "CreateFanButton");
+            this.CreateFanButton.Name = "CreateFanButton";
+            this.CreateFanButton.UseVisualStyleBackColor = true;
+            this.CreateFanButton.Click += new System.EventHandler(this.CreateFanButton_Click);
             // 
-            // cancelButton
+            // defaultParametersButton
             // 
-            resources.ApplyResources(this.cancelButton, "cancelButton");
-            this.cancelButton.Name = "cancelButton";
-            this.cancelButton.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.defaultParametersButton, "defaultParametersButton");
+            this.defaultParametersButton.Name = "defaultParametersButton";
+            this.defaultParametersButton.UseVisualStyleBackColor = true;
+            this.defaultParametersButton.Click += new System.EventHandler(this.DefaultParametersButton_Click);
+            // 
+            // bladesQuantityComboBox
+            // 
+            this.bladesQuantityComboBox.FormattingEnabled = true;
+            resources.ApplyResources(this.bladesQuantityComboBox, "bladesQuantityComboBox");
+            this.bladesQuantityComboBox.Name = "bladesQuantityComboBox";
             // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.cancelButton);
-            this.Controls.Add(this.okButton);
+            this.Controls.Add(this.bladesQuantityComboBox);
+            this.Controls.Add(this.defaultParametersButton);
+            this.Controls.Add(this.CreateFanButton);
             this.Controls.Add(this.noteLabel);
-            this.Controls.Add(this.turnTextBox);
-            this.Controls.Add(this.bladesTextBox);
+            this.Controls.Add(this.bladeTurnTextBox);
             this.Controls.Add(this.thicknessTextBox);
-            this.Controls.Add(this.diameterTextBox);
-            this.Controls.Add(this.lengthTextBox);
+            this.Controls.Add(this.holesDiameterTextBox);
+            this.Controls.Add(this.frameLengthTextBox);
             this.Controls.Add(this.bladeTurnLabel);
             this.Controls.Add(this.bladesQuantityLabel);
             this.Controls.Add(this.bladeThicknessLabel);
@@ -143,13 +145,13 @@
         private System.Windows.Forms.Label bladeThicknessLabel;
         private System.Windows.Forms.Label bladesQuantityLabel;
         private System.Windows.Forms.Label bladeTurnLabel;
-        private System.Windows.Forms.TextBox lengthTextBox;
-        private System.Windows.Forms.TextBox diameterTextBox;
+        private System.Windows.Forms.TextBox frameLengthTextBox;
+        private System.Windows.Forms.TextBox holesDiameterTextBox;
         private System.Windows.Forms.TextBox thicknessTextBox;
-        private System.Windows.Forms.TextBox bladesTextBox;
-        private System.Windows.Forms.TextBox turnTextBox;
+        private System.Windows.Forms.TextBox bladeTurnTextBox;
         private System.Windows.Forms.Label noteLabel;
-        private System.Windows.Forms.Button okButton;
-        private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Button CreateFanButton;
+        private System.Windows.Forms.Button defaultParametersButton;
+        private System.Windows.Forms.ComboBox bladesQuantityComboBox;
     }
 }

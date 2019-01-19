@@ -273,53 +273,53 @@
   <data name="&gt;&gt;bladeTurnLabel.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
-  <data name="lengthTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>152, 49</value>
+  <data name="frameLengthTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>138, 49</value>
   </data>
-  <data name="lengthTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
+  <data name="frameLengthTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>58, 20</value>
   </data>
-  <data name="lengthTextBox.TabIndex" type="System.Int32, mscorlib">
+  <data name="frameLengthTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
-  <data name="&gt;&gt;lengthTextBox.Name" xml:space="preserve">
-    <value>lengthTextBox</value>
+  <data name="&gt;&gt;frameLengthTextBox.Name" xml:space="preserve">
+    <value>frameLengthTextBox</value>
   </data>
-  <data name="&gt;&gt;lengthTextBox.Type" xml:space="preserve">
+  <data name="&gt;&gt;frameLengthTextBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;lengthTextBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;frameLengthTextBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;lengthTextBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;frameLengthTextBox.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <data name="diameterTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>152, 82</value>
+  <data name="holesDiameterTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>138, 82</value>
   </data>
-  <data name="diameterTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
+  <data name="holesDiameterTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>58, 20</value>
   </data>
-  <data name="diameterTextBox.TabIndex" type="System.Int32, mscorlib">
+  <data name="holesDiameterTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
-  <data name="&gt;&gt;diameterTextBox.Name" xml:space="preserve">
-    <value>diameterTextBox</value>
+  <data name="&gt;&gt;holesDiameterTextBox.Name" xml:space="preserve">
+    <value>holesDiameterTextBox</value>
   </data>
-  <data name="&gt;&gt;diameterTextBox.Type" xml:space="preserve">
+  <data name="&gt;&gt;holesDiameterTextBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;diameterTextBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;holesDiameterTextBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;diameterTextBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;holesDiameterTextBox.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
   <data name="thicknessTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>152, 115</value>
+    <value>138, 115</value>
   </data>
   <data name="thicknessTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
+    <value>58, 20</value>
   </data>
   <data name="thicknessTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -336,47 +336,26 @@
   <data name="&gt;&gt;thicknessTextBox.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="bladesTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>152, 148</value>
+  <data name="bladeTurnTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>138, 181</value>
   </data>
-  <data name="bladesTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
+  <data name="bladeTurnTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>58, 20</value>
   </data>
-  <data name="bladesTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;bladesTextBox.Name" xml:space="preserve">
-    <value>bladesTextBox</value>
-  </data>
-  <data name="&gt;&gt;bladesTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bladesTextBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;bladesTextBox.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="turnTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>152, 181</value>
-  </data>
-  <data name="turnTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
-  </data>
-  <data name="turnTextBox.TabIndex" type="System.Int32, mscorlib">
+  <data name="bladeTurnTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
   </data>
-  <data name="&gt;&gt;turnTextBox.Name" xml:space="preserve">
-    <value>turnTextBox</value>
+  <data name="&gt;&gt;bladeTurnTextBox.Name" xml:space="preserve">
+    <value>bladeTurnTextBox</value>
   </data>
-  <data name="&gt;&gt;turnTextBox.Type" xml:space="preserve">
+  <data name="&gt;&gt;bladeTurnTextBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;turnTextBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;bladeTurnTextBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;turnTextBox.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;bladeTurnTextBox.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
   <data name="noteLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -409,57 +388,78 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;noteLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
-  <data name="okButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>96, 246</value>
+  <data name="CreateFanButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>142, 246</value>
   </data>
-  <data name="okButton.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="CreateFanButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
   </data>
-  <data name="okButton.TabIndex" type="System.Int32, mscorlib">
+  <data name="CreateFanButton.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
   </data>
-  <data name="okButton.Text" xml:space="preserve">
+  <data name="CreateFanButton.Text" xml:space="preserve">
     <value>Create Fan</value>
   </data>
-  <data name="&gt;&gt;okButton.Name" xml:space="preserve">
-    <value>okButton</value>
+  <data name="&gt;&gt;CreateFanButton.Name" xml:space="preserve">
+    <value>CreateFanButton</value>
   </data>
-  <data name="&gt;&gt;okButton.Type" xml:space="preserve">
+  <data name="&gt;&gt;CreateFanButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;okButton.Parent" xml:space="preserve">
+  <data name="&gt;&gt;CreateFanButton.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;okButton.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;CreateFanButton.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
-  <data name="cancelButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="defaultParametersButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>177, 246</value>
+  <data name="defaultParametersButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 246</value>
   </data>
-  <data name="cancelButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+  <data name="defaultParametersButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 23</value>
   </data>
-  <data name="cancelButton.TabIndex" type="System.Int32, mscorlib">
+  <data name="defaultParametersButton.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
   </data>
-  <data name="cancelButton.Text" xml:space="preserve">
-    <value>Cancel</value>
+  <data name="defaultParametersButton.Text" xml:space="preserve">
+    <value>Default Parameters</value>
   </data>
-  <data name="&gt;&gt;cancelButton.Name" xml:space="preserve">
-    <value>cancelButton</value>
+  <data name="&gt;&gt;defaultParametersButton.Name" xml:space="preserve">
+    <value>defaultParametersButton</value>
   </data>
-  <data name="&gt;&gt;cancelButton.Type" xml:space="preserve">
+  <data name="&gt;&gt;defaultParametersButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;cancelButton.Parent" xml:space="preserve">
+  <data name="&gt;&gt;defaultParametersButton.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;cancelButton.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;defaultParametersButton.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="bladesQuantityComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>138, 148</value>
+  </data>
+  <data name="bladesQuantityComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>58, 21</value>
+  </data>
+  <data name="bladesQuantityComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;bladesQuantityComboBox.Name" xml:space="preserve">
+    <value>bladesQuantityComboBox</value>
+  </data>
+  <data name="&gt;&gt;bladesQuantityComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bladesQuantityComboBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;bladesQuantityComboBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -469,10 +469,13 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>264, 281</value>
+    <value>229, 281</value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Computer case fan</value>
+    <value>Fan</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainForm</value>

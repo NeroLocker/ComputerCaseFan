@@ -17,17 +17,37 @@ namespace ComputerCaseFan
             InitializeComponent();
         }
 
-        private void okButton_Click(object sender, EventArgs e)
+        private void CreateFanButton_Click(object sender, EventArgs e)
         {
-            ParametersKeeper keeper = new ParametersKeeper();
-            keeper.FrameLength = 20;
-            keeper.HolesDiameter = 1;
-            keeper.CentralCircleRadius = 8;
-            keeper.BladeThickness = 0.03;
-            keeper.BladesQuantity = 6;
-            Builder builder = new Builder();
+            //ParametersKeeper keeper = new ParametersKeeper(20, 1, 0.03, 6, 2);
 
-            builder.MakeObject(keeper);
+
+            //ParametersKeeper keeper = new ParametersKeeper((double)Int32.Parse(frameLengthTextBox.Text),
+            //    (double)Int32.Parse(holesDiameterTextBox.Text),
+            //    (double)Int32.Parse(thicknessTextBox.Text),
+            //    Int32.Parse(bladesQuantityComboBox.Items[0].ToString()),
+            //    (double)Int32.Parse(bladeTurnTextBox.Text));
+
+            double length = Convert.ToDouble(frameLengthTextBox.Text);
+            double diameter = Convert.ToDouble(holesDiameterTextBox.Text);
+            double thickness = Convert.ToDouble(thicknessTextBox.Text);
+            int quant = Convert.ToInt32(bladesQuantityComboBox.Items[0].ToString());
+            double turn = Convert.ToDouble(bladeTurnTextBox.Text);
+            ParametersKeeper keeper = new ParametersKeeper(length, diameter, thickness, quant, turn);
+
+            FANBuilder fanBuilder = new FANBuilder();
+
+            fanBuilder.Build(keeper);
+        }
+
+        private void DefaultParametersButton_Click(object sender, EventArgs e)
+        {
+            frameLengthTextBox.Text = "20";
+            holesDiameterTextBox.Text = "1";
+            thicknessTextBox.Text = "0.03";
+            bladesQuantityComboBox.DataSource = new List<int>() {6, 7, 8, 9};
+            bladesQuantityComboBox.SelectedIndex = 0;
+            bladeTurnTextBox.Text = "2";
         }
     }
 }

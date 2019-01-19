@@ -35,7 +35,7 @@ namespace ComputerCaseFan
         /// <summary>
         /// Хранит поворот лопасти
         /// </summary>
-        private float _bladeTurn;
+        private double _bladeTurn;
 
         private double _holesRadius;
 
@@ -48,16 +48,16 @@ namespace ComputerCaseFan
         public double FrameLength
         {
             get { return _frameLength;}
-            set
+            private set
             {
                 if (value < 20)
                 {
-                    throw new ArgumentException("Frame Length is less then 20");
+                    throw new ArgumentException("Frame length is less then 20");
                 }
 
                 if (value > 30)
                 {
-                    throw new ArgumentException("Frame Length is more then 30");
+                    throw new ArgumentException("Frame length is more then 30");
                 }
 
                 _frameLength = value;
@@ -66,7 +66,7 @@ namespace ComputerCaseFan
         public double HolesDiameter
         {
             get { return _holesDiameter;}
-            set
+            private set
             {
                 if (value < 0.1)
                 {
@@ -82,9 +82,27 @@ namespace ComputerCaseFan
                 HolesRadius = _holesDiameter / 2;
             }
         }
-        public double BladeThickness { get; set; }
-        public int BladesQuantity { get; set; }
-        public float BladeTurn { get; set; }
-        public double CentralCircleRadius { get; set; }
+        public double BladeThickness { get; private set; }
+        public int BladesQuantity { get; private set; }
+        public double BladeTurn { get; private set; }
+        public double CentralCircleRadius { get; private set; }
+
+        /// <summary>
+        /// Конструктор, инициализирующий параметры вентилятора
+        /// </summary>
+        /// <param name="frameLength"></param>
+        /// <param name="holesDiameter"></param>
+        /// <param name="bladeThickness"></param>
+        /// <param name="bladesQuantity"></param>
+        /// <param name="bladeTurn"></param>
+        public ParametersKeeper(double frameLength, double holesDiameter, double bladeThickness, int bladesQuantity, double bladeTurn)
+        {
+            FrameLength = frameLength;
+            HolesDiameter = holesDiameter;
+            BladeThickness = bladeThickness;
+            BladesQuantity = bladesQuantity;
+            BladeTurn = bladeTurn;
+            CentralCircleRadius = 8;
+        }
     }
 }

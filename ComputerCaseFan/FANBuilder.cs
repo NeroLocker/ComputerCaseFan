@@ -14,27 +14,27 @@ using Region = Autodesk.AutoCAD.DatabaseServices.Region;
 
 namespace ComputerCaseFan
 {
-    public class Builder
+    public class FANBuilder
     {
-        private ParametersKeeper _keeper;
-
         private ParametersKeeper ParametersKeeper { get; set; }
+
+        private CADManager Manager { get; set; }
 
         /// <summary>
         /// Строит объект вентилятора
         /// </summary>
         /// <param name="parametersKeeper"></param>
-        public void MakeObject(ParametersKeeper parametersKeeper)
+        public void Build(ParametersKeeper parametersKeeper)
         {
             this.ParametersKeeper = parametersKeeper;
 
-            CADManager manager = new CADManager();
+            this.Manager = new CADManager();
 
-            using (DocumentLock documentLock = manager.Document.LockDocument())
+            using (DocumentLock documentLock = Manager.Document.LockDocument())
             {
-                using (Transaction transaction = manager.Database.TransactionManager.StartTransaction())
+                using (Transaction transaction = Manager.Database.TransactionManager.StartTransaction())
                 {
-                    BlockTableRecord blockTableRecord = manager.GetBlockTableRecord(manager.Database, transaction);
+                    BlockTableRecord blockTableRecord = Manager.GetBlockTableRecord(Manager.Database, transaction);
 
                     // Создаём рамку
                     Solid3d frameSolid = MakeFrame();
@@ -47,16 +47,16 @@ namespace ComputerCaseFan
 
                     // Добавляем записи в таблицу и в транзакцию                    
                     blockTableRecord.AppendEntity(frameSolid);
+                    
                     transaction.AddNewlyCreatedDBObject(frameSolid, true);
 
                     blockTableRecord.AppendEntity(rotorSolid);
                     transaction.AddNewlyCreatedDBObject(rotorSolid, true);
 
                     blockTableRecord.AppendEntity(bladeSolid);
-                    transaction.AddNewlyCreatedDBObject(bladeSolid, true);                                                           
+                    transaction.AddNewlyCreatedDBObject(bladeSolid, true);                                                        
 
-
-                    List<Entity> bladesPolarArray = MakeBladesPolarArray(bladeSolid, manager);
+                    List<Entity> bladesPolarArray = MakeBladesPolarArray(bladeSolid);
                     // Проходим массив из лопастей и добавляем каждый объект в таблицу и транзакцию
                     foreach (Entity currentBlade in bladesPolarArray)
                     {
@@ -71,7 +71,7 @@ namespace ComputerCaseFan
         }
 
         /// <summary>
-        /// Возвращает поляные координаты
+        /// Возвращает полярные координаты
         /// </summary>
         /// <param name="pPt"></param>
         /// <param name="dAng"></param>
@@ -86,9 +86,8 @@ namespace ComputerCaseFan
         /// Возвращает полярный массив лопастей
         /// </summary>
         /// <param name="bladeSolid"></param>
-        /// <param name="manager"></param>
         /// <returns></returns>
-        private List<Entity> MakeBladesPolarArray(Solid3d bladeSolid, CADManager manager)
+        private List<Entity> MakeBladesPolarArray(Solid3d bladeSolid)
         {
             List<Entity> polarArray = new List<Entity>();
 
@@ -126,7 +125,7 @@ namespace ComputerCaseFan
                 }
 
                 double dDist = acPt2dArrayBase.GetDistanceTo(acPtObjBase);
-                double dAngFromX = acPt2dArrayBase.GetVectorTo(acPtObjBase).Angle;
+                double dAngFromX = acPt2dArrayBase.GetVectorTo(acPtObjBase).Angle;               
 
                 Point2d acPt2dTo = PolarPoints(acPt2dArrayBase,
                                                 (nCount * dAng) + dAngFromX,
@@ -144,7 +143,7 @@ namespace ComputerCaseFan
                                             acExts.MaxPoint.Y);
 
                 // Rotate the cloned entity around its upper-left extents point
-                Matrix3d curUCSMatrix = manager.Document.Editor.CurrentUserCoordinateSystem;
+                Matrix3d curUCSMatrix = Manager.Document.Editor.CurrentUserCoordinateSystem;
                 CoordinateSystem3d curUCS = curUCSMatrix.CoordinateSystem3d;
                 acEntClone.TransformBy(Matrix3d.Rotation(nCount * dAng, curUCS.Zaxis, new Point3d(acPtObjBase.X, acPtObjBase.Y, 0)));
 
@@ -239,7 +238,7 @@ namespace ComputerCaseFan
             rotorPolygon.Add(rotorCircle);
 
             // Создаём роторную область
-            DBObjectCollection rotorRegion = Region.CreateFromCurves(rotorPolygon);
+            DBObjectCollection rotorRegion = Region.CreateFromCurves(rotorPolygon);            
             Region rotorCircleRegion = rotorRegion[0] as Region;
 
             // Создаём ротор

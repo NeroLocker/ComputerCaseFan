@@ -77,7 +77,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Builder.cs" />
+    <Compile Include="FANBuilder.cs" />
     <Compile Include="CADManager.cs" />
     <Compile Include="MainClass.cs" />
     <Compile Include="MainForm.cs">
