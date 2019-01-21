@@ -73,21 +73,29 @@
             // 
             resources.ApplyResources(this.frameLengthTextBox, "frameLengthTextBox");
             this.frameLengthTextBox.Name = "frameLengthTextBox";
+            this.frameLengthTextBox.Enter += new System.EventHandler(this.FrameLengthTextBox_Enter);
+            this.frameLengthTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FrameLengthTextBox_KeyPress);
             // 
             // holesDiameterTextBox
             // 
             resources.ApplyResources(this.holesDiameterTextBox, "holesDiameterTextBox");
             this.holesDiameterTextBox.Name = "holesDiameterTextBox";
+            this.holesDiameterTextBox.Enter += new System.EventHandler(this.HolesDiameterTextBox_Enter);
+            this.holesDiameterTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.HolesDiameterTextBox_KeyPress);
             // 
             // thicknessTextBox
             // 
             resources.ApplyResources(this.thicknessTextBox, "thicknessTextBox");
             this.thicknessTextBox.Name = "thicknessTextBox";
+            this.thicknessTextBox.Enter += new System.EventHandler(this.ThicknessTextBox_Enter);
+            this.thicknessTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ThicknessTextBox_KeyPress);
             // 
             // bladeTurnTextBox
             // 
             resources.ApplyResources(this.bladeTurnTextBox, "bladeTurnTextBox");
             this.bladeTurnTextBox.Name = "bladeTurnTextBox";
+            this.bladeTurnTextBox.Enter += new System.EventHandler(this.BladeTurnTextBox_Enter);
+            this.bladeTurnTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.BladeTurnTextBox_KeyPress);
             // 
             // noteLabel
             // 
@@ -114,6 +122,7 @@
             resources.ApplyResources(this.bladesQuantityComboBox, "bladesQuantityComboBox");
             this.bladesQuantityComboBox.Name = "bladesQuantityComboBox";
             this.bladesQuantityComboBox.SelectedIndexChanged += new System.EventHandler(this.BladesQuantityComboBox_SelectedIndexChanged);
+            this.bladesQuantityComboBox.Enter += new System.EventHandler(this.BladesQuantityComboBox_Enter);
             // 
             // MainForm
             // 
