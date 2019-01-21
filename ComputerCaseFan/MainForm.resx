@@ -471,9 +471,6 @@
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>229, 281</value>
   </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Fan</value>
   </data>

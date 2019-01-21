@@ -13,6 +13,11 @@ namespace ComputerCaseFan
     public class ParametersKeeper
     {
         /// <summary>
+        /// Хранит радиус центрального круга
+        /// </summary>
+        public readonly int CentralCircleRadius = 8;
+            
+        /// <summary>
         /// Хранит длину рамки
         /// </summary>
         private double _frameLength;
@@ -25,7 +30,7 @@ namespace ComputerCaseFan
         /// <summary>
         /// Хранит толщину лопастей
         /// </summary>
-        private float _bladeThickness;
+        private double _bladeThickness;
 
         /// <summary>
         /// Хранит количество лопастей
@@ -37,6 +42,9 @@ namespace ComputerCaseFan
         /// </summary>
         private double _bladeTurn;
 
+        /// <summary>
+        /// Хранит радиус рамочных отверстий
+        /// </summary>
         private double _holesRadius;
 
         public double HolesRadius
@@ -52,12 +60,12 @@ namespace ComputerCaseFan
             {
                 if (value < 20)
                 {
-                    throw new ArgumentException("Frame length is less then 20");
+                    throw new ArgumentException("Frame length is less than 20");
                 }
 
                 if (value > 30)
                 {
-                    throw new ArgumentException("Frame length is more then 30");
+                    throw new ArgumentException("Frame length is more than 30");
                 }
 
                 _frameLength = value;
@@ -68,24 +76,79 @@ namespace ComputerCaseFan
             get { return _holesDiameter;}
             private set
             {
-                if (value < 0.1)
+                if (value < 1)
                 {
-                    throw new ArgumentException("Holes diameter is less then 0.1");
+                    throw new ArgumentException("Holes diameter is less than 1");
                 }
 
-                if (value > 1.1)
+                if (value > 2.5)
                 {
-                    throw new ArgumentException("Holes diameter is more then 1.1");
+                    throw new ArgumentException("Holes diameter is more than 2.5");
                 }
 
                 _holesDiameter = value;
+
+                // Неявно рассчитываем радиус отверстий и заносим значение в поле
                 HolesRadius = _holesDiameter / 2;
             }
         }
-        public double BladeThickness { get; private set; }
-        public int BladesQuantity { get; private set; }
-        public double BladeTurn { get; private set; }
-        public double CentralCircleRadius { get; private set; }
+
+        public double BladeThickness
+        {
+            get { return _bladeThickness;}
+            private set
+            {
+                if (value < 0.03)
+                {
+                    throw new ArgumentException("Blade thickness is less than 0.03");
+                }
+
+                if (value > 0.15)
+                {
+                    throw new ArgumentException("Blade thickness is more than 0.15");
+                }
+
+                _bladeThickness = value;
+            }
+        }
+
+        public int BladesQuantity
+        {
+            get { return _bladesQuantity; }
+            private set
+            {
+                if (value < 6)
+                {
+                    throw new ArgumentException("Blades quantity is less than 6");
+                }
+
+                if (value > 9)
+                {
+                    throw new ArgumentException("Blades quantity is more than 9");
+                }
+
+                _bladesQuantity = value;
+            }
+        }
+
+        public double BladeTurn
+        {
+            get { return _bladeTurn;}
+            private set
+            {
+                if (value < 2)
+                {
+                    throw new ArgumentException("Blade turn is less than 2");
+                }
+
+                if (value > 3)
+                {
+                    throw new ArgumentException("Blade turn is more than 3");
+                }
+
+                _bladeTurn = value;
+            }
+        }
 
         /// <summary>
         /// Конструктор, инициализирующий параметры вентилятора
@@ -97,12 +160,11 @@ namespace ComputerCaseFan
         /// <param name="bladeTurn"></param>
         public ParametersKeeper(double frameLength, double holesDiameter, double bladeThickness, int bladesQuantity, double bladeTurn)
         {
-            FrameLength = frameLength;
-            HolesDiameter = holesDiameter;
-            BladeThickness = bladeThickness;
-            BladesQuantity = bladesQuantity;
-            BladeTurn = bladeTurn;
-            CentralCircleRadius = 8;
+            this.FrameLength = frameLength;
+            this.HolesDiameter = holesDiameter;
+            this.BladeThickness = bladeThickness;
+            this.BladesQuantity = bladesQuantity;
+            this.BladeTurn = bladeTurn;
         }
     }
 }

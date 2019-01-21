@@ -113,6 +113,7 @@
             this.bladesQuantityComboBox.FormattingEnabled = true;
             resources.ApplyResources(this.bladesQuantityComboBox, "bladesQuantityComboBox");
             this.bladesQuantityComboBox.Name = "bladesQuantityComboBox";
+            this.bladesQuantityComboBox.SelectedIndexChanged += new System.EventHandler(this.BladesQuantityComboBox_SelectedIndexChanged);
             // 
             // MainForm
             // 
