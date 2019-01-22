@@ -43,7 +43,7 @@ namespace ComputerCaseFan
                     Solid3d rotorSolid = MakeRotor();
 
                     // Создаём лопасть
-                    Solid3d bladeSolid = MakeBlade();
+                    Solid3d bladeSolid = MakeBlade(ParametersKeeper.BladeTurn);
 
                     // Добавляем записи в таблицу и в транзакцию                    
                     blockTableRecord.AppendEntity(frameSolid);
@@ -77,9 +77,29 @@ namespace ComputerCaseFan
         /// <param name="dAng"></param>
         /// <param name="dDist"></param>
         /// <returns></returns>
-        static Point2d PolarPoints(Point2d pPt, double dAng, double dDist)
+        private static Point2d PolarPoints(Point2d pPt, double dAng, double dDist)
         {
             return new Point2d(pPt.X + dDist * Math.Cos(dAng), pPt.Y + dDist * Math.Sin(dAng));
+        }
+
+        /// <summary>
+        /// Возвращает корректный угол в радианах между лопастями
+        /// </summary>
+        /// <param name="bladesQuantity"></param>
+        /// <returns></returns>
+        private double CalculateAngle(int bladesQuantity)
+        {
+            double degreesAngle = 360 / bladesQuantity;
+            double radiansAngle = degreesAngle * (Math.PI / 180);
+
+            return radiansAngle;
+        }
+
+        private double GetRadiansAngle(double degreesAngle)
+        {
+            double radiansAngle = degreesAngle * (Math.PI / 180);
+
+            return radiansAngle;
         }
 
         /// <summary>
@@ -91,18 +111,17 @@ namespace ComputerCaseFan
         {
             List<Entity> polarArray = new List<Entity>();
 
-            // Create a 6 object polar array that goes a 360
-            int nCount = 1;
+            // Устанавливаем угол в радианах между лопастями
+            double dAng = CalculateAngle(ParametersKeeper.BladesQuantity);
 
-            // Set a value in radians for 60 degrees
-            double dAng = 1.0472;
-
-            // Use (0,0,0) as the base point for the array
+            // Используем точку (0,0,0) как базовую точку для будущего массива
             Point2d acPt2dArrayBase = new Point2d(0, 0);
 
+            int nCount = 1;
             while (nCount < ParametersKeeper.BladesQuantity)
             {                
-                Entity acEntClone = bladeSolid.Clone() as Entity;
+                // На каждой итерации клонируем лопасть
+                Entity bladeSolidEntityClone = bladeSolid.Clone() as Entity;
 
                 Extents3d acExts;
                 Point2d acPtObjBase;
@@ -110,54 +129,50 @@ namespace ComputerCaseFan
                 // Typically the upper-left corner of an object's extents is used
                 // for the point on the object to be arrayed unless it is
                 // an object like a circle.
-                Circle acCircArrObj = acEntClone as Circle;
+                Circle acCircArrObj = bladeSolidEntityClone as Circle;
 
                 if (acCircArrObj != null)
                 {
-                    acPtObjBase = new Point2d(acCircArrObj.Center.X,
-                                                acCircArrObj.Center.Y);
+                    acPtObjBase = new Point2d(acCircArrObj.Center.X, acCircArrObj.Center.Y);
                 }
                 else
                 {
-                    acExts = acEntClone.Bounds.GetValueOrDefault();
+                    acExts = bladeSolidEntityClone.Bounds.GetValueOrDefault();
                     acPtObjBase = new Point2d(acExts.MinPoint.X,
                                                 acExts.MaxPoint.Y);
                 }
 
+                // Расстояние от центральной точки до лопасти
                 double dDist = acPt2dArrayBase.GetDistanceTo(acPtObjBase);
+
+                // Угол
                 double dAngFromX = acPt2dArrayBase.GetVectorTo(acPtObjBase).Angle;               
 
-                Point2d acPt2dTo = PolarPoints(acPt2dArrayBase,
-                                                (nCount * dAng) + dAngFromX,
-                                                dDist);
+                Point2d acPt2dTo = PolarPoints(acPt2dArrayBase, (nCount * dAng) + dAngFromX, dDist);
 
                 Vector2d acVec2d = acPtObjBase.GetVectorTo(acPt2dTo);
                 Vector3d acVec3d = new Vector3d(acVec2d.X, acVec2d.Y, 0);
-                acEntClone.TransformBy(Matrix3d.Displacement(acVec3d));
+                bladeSolidEntityClone.TransformBy(Matrix3d.Displacement(acVec3d));
 
 
-                // The following code demonstrates how to rotate each object like
-                // the ARRAY command does.
-                acExts = acEntClone.Bounds.GetValueOrDefault();
+                // Поворачиваем лопасть
+                acExts = bladeSolidEntityClone.Bounds.GetValueOrDefault();
                 acPtObjBase = new Point2d(acExts.MinPoint.X,
                                             acExts.MaxPoint.Y);
 
                 // Rotate the cloned entity around its upper-left extents point
                 Matrix3d curUCSMatrix = Manager.Document.Editor.CurrentUserCoordinateSystem;
                 CoordinateSystem3d curUCS = curUCSMatrix.CoordinateSystem3d;
-                acEntClone.TransformBy(Matrix3d.Rotation(nCount * dAng, curUCS.Zaxis, new Point3d(acPtObjBase.X, acPtObjBase.Y, 0)));
+                bladeSolidEntityClone.TransformBy(Matrix3d.Rotation(nCount * dAng, curUCS.Zaxis, new Point3d(acPtObjBase.X, acPtObjBase.Y, 0)));
 
-
-                //blockTableRecord.AppendEntity(acEntClone);
-                //transaction.AddNewlyCreatedDBObject(acEntClone, true);
-                polarArray.Add(acEntClone);
+                polarArray.Add(bladeSolidEntityClone);
 
                 nCount = nCount + 1;
             }
 
             return polarArray;
         }
-
+     
         /// <summary>
         /// Возвращает трехмерный объект рамки
         /// </summary>
@@ -252,7 +267,7 @@ namespace ComputerCaseFan
         /// Возвращает трехмерный объект лопасти
         /// </summary>
         /// <returns></returns>
-        private Solid3d MakeBlade()
+        private Solid3d MakeBlade(double rotationAngle)
         {
             Solid3d bladeSolid = new Solid3d();
             bladeSolid.CreateBox(ParametersKeeper.BladeThickness, 4, 10);
@@ -261,7 +276,7 @@ namespace ComputerCaseFan
             // Повернём объект на 15 градусов вокруг оси, определенной вектором с точками
             //(0, 1, 5) and (0, -1, 5)
             Vector3d vectorRotate = new Point3d(0, 1, 5).GetVectorTo(new Point3d(0, -1, 5));
-            bladeSolid.TransformBy(Matrix3d.Rotation(0.25, vectorRotate, new Point3d(0, 1, 5)));
+            bladeSolid.TransformBy(Matrix3d.Rotation(GetRadiansAngle(rotationAngle), vectorRotate, new Point3d(0, 1, 5)));
 
             return bladeSolid;
         }

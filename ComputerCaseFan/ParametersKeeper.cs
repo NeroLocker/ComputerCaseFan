@@ -63,9 +63,9 @@ namespace ComputerCaseFan
                     throw new ArgumentException("Frame length is less than 20");
                 }
 
-                if (value > 30)
+                if (value > 25)
                 {
-                    throw new ArgumentException("Frame length is more than 30");
+                    throw new ArgumentException("Frame length is more than 25");
                 }
 
                 _frameLength = value;
@@ -136,14 +136,14 @@ namespace ComputerCaseFan
             get { return _bladeTurn;}
             private set
             {
-                if (value < 2)
+                if (value < 15)
                 {
-                    throw new ArgumentException("Blade turn is less than 2");
+                    throw new ArgumentException("Blade turn is less than 15");
                 }
 
-                if (value > 3)
+                if (value > 22)
                 {
-                    throw new ArgumentException("Blade turn is more than 3");
+                    throw new ArgumentException("Blade turn is more than 22");
                 }
 
                 _bladeTurn = value;

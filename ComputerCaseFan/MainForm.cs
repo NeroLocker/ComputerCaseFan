@@ -69,7 +69,7 @@ namespace ComputerCaseFan
         /// <param name="e"></param>
         private void CreateFanButton_Click(object sender, EventArgs e)
         {
-            if (AreAllFieldsCorrect() == true)
+            if (AreAllFieldsCorrect())
             {
                 ParametersKeeper keeper;
 
@@ -83,9 +83,9 @@ namespace ComputerCaseFan
                 double holesDiameter = double.Parse(holesDiameterTextBox.Text, CultureInfo.InvariantCulture);
                 double bladeThickness = double.Parse(thicknessTextBox.Text, CultureInfo.InvariantCulture);
 
-                int bladesQuantity = 9;
+                //int bladesQuantity = 9;
 
-                //int bladesQuantity = Convert.ToInt32(bladesQuantityComboBox.Items[BladesQuantityIndex].ToString());
+                int bladesQuantity = Convert.ToInt32(bladesQuantityComboBox.Items[BladesQuantityIndex].ToString());
 
                 double bladeTurn = double.Parse(bladeTurnTextBox.Text, CultureInfo.InvariantCulture);
 
@@ -105,7 +105,7 @@ namespace ComputerCaseFan
                         frameLengthTextBox.BackColor = Color.MistyRose;
                     }
 
-                    if (exception.Message == "Frame length is more than 30")
+                    if (exception.Message == "Frame length is more than 25")
                     {
                         frameLengthTextBox.BackColor = Color.MistyRose;
                     }
@@ -152,12 +152,12 @@ namespace ComputerCaseFan
 
 
                     // Поворот лопастей
-                    if (exception.Message == "Blade turn is less than 2")
+                    if (exception.Message == "Blade turn is less than 15")
                     {
                         bladeTurnTextBox.BackColor = Color.MistyRose;
                     }
 
-                    if (exception.Message == "Blade turn is more than 3")
+                    if (exception.Message == "Blade turn is more than 22")
                     {
                         bladeTurnTextBox.BackColor = Color.MistyRose;
                     }
@@ -184,13 +184,12 @@ namespace ComputerCaseFan
             bladesQuantityComboBox.BackColor = Color.White;
             bladeTurnTextBox.BackColor = Color.White;
             
-
             // Проставляем стандартные параметры
             frameLengthTextBox.Text = "20";
-            holesDiameterTextBox.Text = "1";
+            holesDiameterTextBox.Text = "1.5";
             thicknessTextBox.Text = "0.03";
             bladesQuantityComboBox.SelectedIndex = 0;
-            bladeTurnTextBox.Text = "2";
+            bladeTurnTextBox.Text = "15";
         }
 
         private void BladesQuantityComboBox_SelectedIndexChanged(object sender, EventArgs e)
