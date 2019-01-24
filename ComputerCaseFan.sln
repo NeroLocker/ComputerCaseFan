@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.106
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerCaseFan", "ComputerCaseFan\ComputerCaseFan.csproj", "{87AF76A7-61CD-4B54-AA74-4AEEA218333A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerCaseFan.UnitTests", "ComputerCaseFan.UnitTests\ComputerCaseFan.UnitTests.csproj", "{87A8D19E-6396-4F52-B68F-B3C1CF36924E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,14 @@ Global
 		{87AF76A7-61CD-4B54-AA74-4AEEA218333A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{87AF76A7-61CD-4B54-AA74-4AEEA218333A}.Release|x64.ActiveCfg = Release|x64
 		{87AF76A7-61CD-4B54-AA74-4AEEA218333A}.Release|x64.Build.0 = Release|x64
+		{87A8D19E-6396-4F52-B68F-B3C1CF36924E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87A8D19E-6396-4F52-B68F-B3C1CF36924E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87A8D19E-6396-4F52-B68F-B3C1CF36924E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{87A8D19E-6396-4F52-B68F-B3C1CF36924E}.Debug|x64.Build.0 = Debug|Any CPU
+		{87A8D19E-6396-4F52-B68F-B3C1CF36924E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87A8D19E-6396-4F52-B68F-B3C1CF36924E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87A8D19E-6396-4F52-B68F-B3C1CF36924E}.Release|x64.ActiveCfg = Release|Any CPU
+		{87A8D19E-6396-4F52-B68F-B3C1CF36924E}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

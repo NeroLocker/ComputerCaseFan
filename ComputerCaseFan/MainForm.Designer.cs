@@ -143,6 +143,7 @@
             this.Controls.Add(this.frameLengthLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "MainForm";
+            this.ShowIcon = false;
             this.ResumeLayout(false);
             this.PerformLayout();
 
