@@ -42,6 +42,8 @@
             this.CreateFanButton = new System.Windows.Forms.Button();
             this.defaultParametersButton = new System.Windows.Forms.Button();
             this.bladesQuantityComboBox = new System.Windows.Forms.ComboBox();
+            this.visualStyleLabel = new System.Windows.Forms.Label();
+            this.visualStyleComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // frameLengthLabel
@@ -124,10 +126,24 @@
             this.bladesQuantityComboBox.SelectedIndexChanged += new System.EventHandler(this.BladesQuantityComboBox_SelectedIndexChanged);
             this.bladesQuantityComboBox.Enter += new System.EventHandler(this.BladesQuantityComboBox_Enter);
             // 
+            // visualStyleLabel
+            // 
+            resources.ApplyResources(this.visualStyleLabel, "visualStyleLabel");
+            this.visualStyleLabel.Name = "visualStyleLabel";
+            // 
+            // visualStyleComboBox
+            // 
+            this.visualStyleComboBox.FormattingEnabled = true;
+            resources.ApplyResources(this.visualStyleComboBox, "visualStyleComboBox");
+            this.visualStyleComboBox.Name = "visualStyleComboBox";
+            this.visualStyleComboBox.SelectedIndexChanged += new System.EventHandler(this.VisualStyleComboBox_SelectedIndexChanged);
+            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.visualStyleComboBox);
+            this.Controls.Add(this.visualStyleLabel);
             this.Controls.Add(this.bladesQuantityComboBox);
             this.Controls.Add(this.defaultParametersButton);
             this.Controls.Add(this.CreateFanButton);
@@ -141,7 +157,8 @@
             this.Controls.Add(this.bladeThicknessLabel);
             this.Controls.Add(this.holesDiameterLabel);
             this.Controls.Add(this.frameLengthLabel);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.Name = "MainForm";
             this.ShowIcon = false;
             this.ResumeLayout(false);
@@ -164,5 +181,7 @@
         private System.Windows.Forms.Button CreateFanButton;
         private System.Windows.Forms.Button defaultParametersButton;
         private System.Windows.Forms.ComboBox bladesQuantityComboBox;
+        private System.Windows.Forms.Label visualStyleLabel;
+        private System.Windows.Forms.ComboBox visualStyleComboBox;
     }
 }

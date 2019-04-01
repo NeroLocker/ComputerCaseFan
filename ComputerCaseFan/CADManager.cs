@@ -28,7 +28,7 @@ namespace ComputerCaseFan
         /// Хранит сущность редактора
         /// </summary>
         private Editor _editor;
-       
+
         public Document Document
         {
             get { return _document; }
@@ -40,6 +40,7 @@ namespace ComputerCaseFan
             get { return _database; }
             private set { _database = value; }
         }
+
 
         public Editor Editor
         {

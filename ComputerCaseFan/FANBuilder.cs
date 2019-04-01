@@ -16,9 +16,13 @@ namespace ComputerCaseFan
 {
     public class FANBuilder
     {
+        // Хранит параметры вентилятора
         private ParametersKeeper ParametersKeeper { get; set; }
 
+        // Хранит менеджер
         private CADManager Manager { get; set; }
+
+        public string VisualStyle { get; set; }
 
         /// <summary>
         /// Строит объект вентилятора
@@ -26,14 +30,19 @@ namespace ComputerCaseFan
         /// <param name="parametersKeeper"></param>
         public void Build(ParametersKeeper parametersKeeper)
         {
+            // Инициализируем поля
             this.ParametersKeeper = parametersKeeper;
-
             this.Manager = new CADManager();
 
+            // Перед операцией блокируем доступ к текущему документу в целях защиты от одновременного доступа
+            // от других приложений
             using (DocumentLock documentLock = Manager.Document.LockDocument())
             {
+                // Открываем транзакцию, которая зафиксирует изменения
                 using (Transaction transaction = Manager.Database.TransactionManager.StartTransaction())
                 {
+                    Editor editor = Manager.Editor;
+                    // 
                     BlockTableRecord blockTableRecord = Manager.GetBlockTableRecord(Manager.Database, transaction);
 
                     // Создаём рамку
@@ -45,7 +54,7 @@ namespace ComputerCaseFan
                     // Создаём лопасть
                     Solid3d bladeSolid = MakeBlade(ParametersKeeper.BladeTurn);
 
-                    // Добавляем записи в таблицу и в транзакцию                    
+                    // Добавляем изменения в запись таблицы блоков и в транзакцию
                     blockTableRecord.AppendEntity(frameSolid);
                     
                     transaction.AddNewlyCreatedDBObject(frameSolid, true);
@@ -56,17 +65,28 @@ namespace ComputerCaseFan
                     blockTableRecord.AppendEntity(bladeSolid);
                     transaction.AddNewlyCreatedDBObject(bladeSolid, true);                                                        
 
+                    // Создаём лопасти
                     List<Entity> bladesPolarArray = MakeBladesPolarArray(bladeSolid);
-                    // Проходим массив из лопастей и добавляем каждый объект в таблицу и транзакцию
+                    // Проходим массив из лопастей и добавляем каждый объект в запись таблицы блоков и транзакцию
                     foreach (Entity currentBlade in bladesPolarArray)
                     {
                         blockTableRecord.AppendEntity(currentBlade);
                         transaction.AddNewlyCreatedDBObject(currentBlade, true);
                     }
-                    
-                    // Коммитим
+
+                    ViewportTable vt = (ViewportTable)transaction.GetObject(Manager.Database.ViewportTableId, OpenMode.ForRead);
+
+                    ViewportTableRecord vtr = (ViewportTableRecord)transaction.GetObject(vt["*Active"], OpenMode.ForWrite);
+
+                    DBDictionary dict =(DBDictionary)transaction.GetObject(Manager.Database.VisualStyleDictionaryId, OpenMode.ForRead);
+
+                    vtr.VisualStyleId = dict.GetAt(VisualStyle);                    
+
+                    // Коммитим в транзакцию
                     transaction.Commit();
-                }                
+                    editor.UpdateTiledViewportsFromDatabase();
+                }              
+                
             }
         }
 
@@ -95,6 +115,11 @@ namespace ComputerCaseFan
             return radiansAngle;
         }
 
+        /// <summary>
+        /// Возвращает угол в радианах
+        /// </summary>
+        /// <param name="degreesAngle"></param>
+        /// <returns></returns>
         private double GetRadiansAngle(double degreesAngle)
         {
             double radiansAngle = degreesAngle * (Math.PI / 180);
@@ -126,9 +151,6 @@ namespace ComputerCaseFan
                 Extents3d acExts;
                 Point2d acPtObjBase;
 
-                // Typically the upper-left corner of an object's extents is used
-                // for the point on the object to be arrayed unless it is
-                // an object like a circle.
                 Circle acCircArrObj = bladeSolidEntityClone as Circle;
 
                 if (acCircArrObj != null)
@@ -160,7 +182,6 @@ namespace ComputerCaseFan
                 acPtObjBase = new Point2d(acExts.MinPoint.X,
                                             acExts.MaxPoint.Y);
 
-                // Rotate the cloned entity around its upper-left extents point
                 Matrix3d curUCSMatrix = Manager.Document.Editor.CurrentUserCoordinateSystem;
                 CoordinateSystem3d curUCS = curUCSMatrix.CoordinateSystem3d;
                 bladeSolidEntityClone.TransformBy(Matrix3d.Rotation(nCount * dAng, curUCS.Zaxis, new Point3d(acPtObjBase.X, acPtObjBase.Y, 0)));

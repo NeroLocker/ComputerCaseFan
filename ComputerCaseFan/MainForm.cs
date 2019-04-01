@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Autodesk.AutoCAD.Windows;
 
 namespace ComputerCaseFan
 {
@@ -15,6 +16,11 @@ namespace ComputerCaseFan
     {
         private int BladesQuantityIndex { get; set; }
 
+        private int VisualStyleIndex { get; set; }
+
+        /// <summary>
+        /// Конструктор главной формы
+        /// </summary>
         public MainForm()
         {
             InitializeComponent();
@@ -26,14 +32,24 @@ namespace ComputerCaseFan
             {
                 bladesQuantityComboBox.Items.Add(element);
             }
+
+            List<string> visualStylesList = new List<string>() { "Hidden", "Realistic", "Wireframe"};
+
+            foreach (string element in visualStylesList)
+            {
+                visualStyleComboBox.Items.Add(element);
+            }
         }
 
         /// <summary>
-        /// Проверяет правильность полей
+        /// Проверяет корректность полей
         /// </summary>
         /// <returns></returns>
         private bool AreAllFieldsCorrect()
         {
+            // Проверка того, что поля пусты
+            // Проверка того, что не выбрано количество лопастей
+
             if (frameLengthTextBox.Text.Length == 0)
             {
                 return false;
@@ -59,47 +75,64 @@ namespace ComputerCaseFan
                 return false;
             }
 
+            if (visualStyleComboBox.SelectedIndex == -1)
+            {
+                return false;
+            }
+
             return true;
+        }
+
+        /// <summary>
+        /// Удаляет все вхождения точек слева и справа от введеных строк пользователя
+        /// </summary>
+        private void TrimFields()
+        {
+            frameLengthTextBox.Text = frameLengthTextBox.Text.Trim('.');
+            holesDiameterTextBox.Text = holesDiameterTextBox.Text.Trim('.');
+            thicknessTextBox.Text = thicknessTextBox.Text.Trim('.');
+            bladeTurnTextBox.Text = bladeTurnTextBox.Text.Trim('.');
         }
         
         /// <summary>
-        /// Событие при нажатии кнопки "Create Fan"
+        /// Событие при нажатии кнопки "Create Fan", создающее вентилятор по введеным параметрам
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void CreateFanButton_Click(object sender, EventArgs e)
         {
+            // Поля должны быть заполнены
             if (AreAllFieldsCorrect())
             {
+                // Объявляем хранитель параметров
                 ParametersKeeper keeper;
 
-                frameLengthTextBox.Text = frameLengthTextBox.Text.Trim('.');
-                holesDiameterTextBox.Text = holesDiameterTextBox.Text.Trim('.');
-                thicknessTextBox.Text = thicknessTextBox.Text.Trim('.');
-                bladeTurnTextBox.Text = bladeTurnTextBox.Text.Trim('.');
+                // Удаляем все вхождения точек слева и справа от введеной строки
+                TrimFields();
 
                 // Читаем данные с формы
                 double frameLength = double.Parse(frameLengthTextBox.Text, CultureInfo.InvariantCulture);
                 double holesDiameter = double.Parse(holesDiameterTextBox.Text, CultureInfo.InvariantCulture);
                 double bladeThickness = double.Parse(thicknessTextBox.Text, CultureInfo.InvariantCulture);
-
-                //int bladesQuantity = 9;
-
                 int bladesQuantity = Convert.ToInt32(bladesQuantityComboBox.Items[BladesQuantityIndex].ToString());
-
                 double bladeTurn = double.Parse(bladeTurnTextBox.Text, CultureInfo.InvariantCulture);
 
+                // Попытка построить вентилятор
                 try
                 {
-                    keeper = new ParametersKeeper(frameLength, holesDiameter, bladeThickness, bladesQuantity, bladeTurn);
+                    keeper = new ParametersKeeper(frameLength, holesDiameter, 
+                        bladeThickness, bladesQuantity, bladeTurn);
 
                     FANBuilder fanBuilder = new FANBuilder();
 
+                    fanBuilder.VisualStyle = visualStyleComboBox.Items[VisualStyleIndex].ToString();
+
                     fanBuilder.Build(keeper);
                 }
+                // Ловим исключения при инициализации полей хранителя параметров
                 catch (ArgumentException exception)
                 {
-                    // Длина рамки
+                    // Подсвечиваем соответствующие поля
                     if (exception.Message == "Frame length is less than 20")
                     {
                         frameLengthTextBox.BackColor = Color.MistyRose;
@@ -109,10 +142,7 @@ namespace ComputerCaseFan
                     {
                         frameLengthTextBox.BackColor = Color.MistyRose;
                     }
-
-
-
-                    // Диаметр рамочных отверстий
+ 
                     if (exception.Message == "Holes diameter is less than 1")
                     {
                         holesDiameterTextBox.BackColor = Color.MistyRose;
@@ -123,9 +153,6 @@ namespace ComputerCaseFan
                         holesDiameterTextBox.BackColor = Color.MistyRose;
                     }
 
-
-
-                    // Толщина лопастей
                     if (exception.Message == "Blade thickness is less than 0.03")
                     {
                         thicknessTextBox.BackColor = Color.MistyRose;
@@ -136,9 +163,6 @@ namespace ComputerCaseFan
                         thicknessTextBox.BackColor = Color.MistyRose;
                     }
 
-
-
-                    // Количество лопастей
                     if (exception.Message == "Blades quantity is less than 6")
                     {
                         bladesQuantityComboBox.BackColor = Color.MistyRose;
@@ -149,9 +173,6 @@ namespace ComputerCaseFan
                         bladesQuantityComboBox.BackColor = Color.MistyRose;
                     }
 
-
-
-                    // Поворот лопастей
                     if (exception.Message == "Blade turn is less than 15")
                     {
                         bladeTurnTextBox.BackColor = Color.MistyRose;
@@ -164,9 +185,9 @@ namespace ComputerCaseFan
                 }
             }
 
+            // Если нет, то ничего не делаем
             else
-            {
-                
+            {                
             }            
         }
 
@@ -177,21 +198,27 @@ namespace ComputerCaseFan
         /// <param name="e"></param>
         private void DefaultParametersButton_Click(object sender, EventArgs e)
         {
-            // Возвращаем стандартный цвет
+            // Возвращаем стандартный цвет полей
             frameLengthTextBox.BackColor = Color.White;
             holesDiameterTextBox.BackColor = Color.White;
             thicknessTextBox.BackColor = Color.White;
             bladesQuantityComboBox.BackColor = Color.White;
             bladeTurnTextBox.BackColor = Color.White;
             
-            // Проставляем стандартные параметры
+            // Присваиваем стандартные параметры
             frameLengthTextBox.Text = "20";
             holesDiameterTextBox.Text = "1.5";
             thicknessTextBox.Text = "0.03";
             bladesQuantityComboBox.SelectedIndex = 0;
             bladeTurnTextBox.Text = "15";
+            visualStyleComboBox.SelectedIndex = 0;
         }
 
+        /// <summary>
+        /// Событие при изменении индекса выбранного количества лопастей
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BladesQuantityComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             BladesQuantityIndex = bladesQuantityComboBox.SelectedIndex;
@@ -251,15 +278,20 @@ namespace ComputerCaseFan
 
         # region Key Press Events
         /// <summary>
-        /// Событие при нажатии кнопки в поле FrameLengthTextBox
+        /// Событие при нажатии кнопки в поле FrameLengthTextBox, не позволяющее ввести любые символы
+        /// кроме цифр, точек и клавиши BackSpace
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void FrameLengthTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
+            // ASCII коды
+            // с 48 по 57 - цифры
+            // 8 - BackSpace
+            // 46 - точка
             char number = e.KeyChar;
             if ((e.KeyChar <= 47 || e.KeyChar >= 58) 
-                && number != 8 && number != 46) //цифры, клавиша BackSpace и запятая с точкой а ASCII
+                && number != 8 && number != 46)
             {
                 e.Handled = true;
             }
@@ -294,6 +326,11 @@ namespace ComputerCaseFan
         {
             FrameLengthTextBox_KeyPress(sender, e);
         }
-        # endregion
+        #endregion
+
+        private void VisualStyleComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            VisualStyleIndex = visualStyleComboBox.SelectedIndex;
+        }
     }
 }
